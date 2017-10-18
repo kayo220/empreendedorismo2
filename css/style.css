@@ -1,0 +1,94 @@
+/****************************************
+ ****************************************
+ *******       CUSTOM SCSS        *******
+ *******                          *******
+ ****************************************/
+body {
+  background:  #8B0000;
+}
+.teste{
+ margin: 400px;
+ -webkit-text-fill-color: #dd2;
+ font-size: 40px;
+} 
+.green-row {
+  height: 400px;
+  padding-top: 80px;
+}
+.green-row .g-2 {
+  display: block;
+  padding: 0;
+  margin: 0 -0.625rem;
+  *zoom: 1;
+  background: #ddd;
+  margin: 0;
+}
+.green-row .g-2:before, .green-row .g-2:after {
+  content: " ";
+  display: table;
+}
+.green-row .g-2:after {
+  clear: both;
+}
+.green-row .g-2 > li {
+  display: block;
+  height: auto;
+  float: left;
+  padding: 0 0.625rem 1.25rem;
+}
+.green-row .g-2 > li {
+  width: 50%;
+  padding: 0 0.625rem 1.25rem;
+  list-style: none;
+}
+.green-row .g-2 > li:nth-of-type(n) {
+  clear: none;
+}
+.green-row .g-2 > li:nth-of-type(2n+1) {
+  clear: both;
+}
+.green-row .g-2 dd {
+  width: 50%;
+  padding: 0;
+  margin: 0;
+}
+.green-row .g-2 dd a {
+  text-align: center;
+  font-weight: bold;
+}
+.green-row .tabs-content {
+  display: block;
+  padding: 0;
+  margin: 0 -0.625rem;
+  *zoom: 1;
+  margin: 0;
+  padding: 20px;
+  background: white;
+}
+.green-row .tabs-content:before, .green-row .tabs-content:after {
+  content: " ";
+  display: table;
+}
+.green-row .tabs-content:after {
+  clear: both;
+}
+.green-row .tabs-content > li {
+  display: block;
+  height: auto;
+  float: left;
+  padding: 0 0.625rem 1.25rem;
+}
+.green-row .tabs-content > li {
+  width: 100%;
+  padding: 0 0.625rem 1.25rem;
+  list-style: none;
+}
+.green-row .tabs-content > li:nth-of-type(n) {
+  clear: none;
+}
+.green-row .tabs-content > li:nth-of-type(1n+1) {
+  clear: both;
+}
+.green-row .tabs-content .content {
+  width: 100%;
+}
