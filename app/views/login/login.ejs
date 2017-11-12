@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Dakamo</title>
+  <script src="https://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
+  
+  <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/foundation/5.2.1/css/foundation.min.css'>
+   <link rel="stylesheet" href="css/style.css">
+  
+</head>
+
+<body>
+  <div class="row green-row">
+  
+  <div class="large-8 large-centered columns">
+  
+  <dl class="tabs g-2" data-tab data-options="scroll_to_content:false" data-options="deep_linking:true" >
+    <dd class="active"><a href="#panel2-1">Login</a></dd>
+    <dd><a href="#panel2-2">Cadastro</a></dd>
+  </dl>
+  <div class="tabs-content">
+    <div class="content content <%if(tab == 'signup'){%> active <%}%>" id="panel2-2">
+      
+      <h3 class="text-center">Cadastro</h3>
+      <div class="errors">
+          <%if(validationErrors) {%>
+                <ul>
+                    <%for(var i=0; i<validationErrors.length; i++){%>
+                        <li><%= validationErrors[i].msg %></li>
+                    <%}%>
+                </ul>
+            <%}%>
+      </div>
+      <form class="row" action='/signup' method='post'>
+        <div class="large-7 column large-centered">
+            <label>Nome
+              <input type="text" name="name" placeholder="Nome" />
+            </label>
+            <label>Email
+              <input type="email" name="email" placeholder="Email" />
+            </label>
+            <label>Nome de Usuário
+              <input type="text" name="username" placeholder="Usuário" />
+            </label>
+            <label>Senha
+              <input type="password" name="password" placeholder="Senha" />
+            </label>
+            <label>Data de Nascimento
+              <input type="date" name="birthdate" placeholder="data" />
+            </label>
+            <label>Você é fumante? </label><label>
+               &nbsp&nbsp<INPUT TYPE="RADIO" NAME="smoker" VALUE="true"> Sim<br/></label><label>
+               &nbsp&nbsp<INPUT TYPE="RADIO" NAME="smoker" VALUE="false"> Não <br/></label>
+            <label>Consome álcool? </label><label>
+              &nbsp&nbsp<input type="radio" name="alcohol" value="true"/> Sim<br/></label><label>
+              &nbsp&nbsp<input type="radio" name="alcohol" value="false"/> Não<br/></label>
+            <label>Possui animais de estimação? </label><label>
+              &nbsp&nbsp<input type="radio" name="pets" value="true"/> Sim<br/></label><label>
+              &nbsp&nbsp<input type="radio" name="pets" value="false"/> Não<br/></label>
+              <label>Tem filhos? </label><label>
+              &nbsp&nbsp<input type="radio" name="children" value="true"/> Sim<br/></label><label>
+              &nbsp&nbsp<input type="radio" name="children" value="false"/> Não<br/></label>
+                <center>  
+                <label class="control-label">Foto de Pefil</label>
+                <div class="col-xs-12">
+                <input id="imagem" type="file" accept="image/*" single/>
+            </div>
+                          <center><input type="submit" value="Cadastro" class="button secondary"/></center>
+                        </div>
+                      </form>
+                      
+                    </div>
+                    </center>
+    <div class="content <%if(tab == 'login'){%> active <%}%>" id="panel2-1">
+      
+      <h3 class="text-center">Login</h3>
+      
+      <form class="row">
+        <div class="large-7 column large-centered">
+            <label>Email
+              <input type="email" placeholder="Email" />
+            </label>
+            <label>Senha
+              <input type="password" placeholder="Senha" />
+            </label>
+          <center><input type="button" value="Login" class="button secondary"/></center>
+        </div>
+      </form>
+      
+    </div>
+    
+   </div>
+ 
+  </div>
+  
+</div> <!-- End Row -->
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/js/foundation.min.js'></script>
+
+    <script  src="js/index.js"></script>
+
+</body>
+</html>
