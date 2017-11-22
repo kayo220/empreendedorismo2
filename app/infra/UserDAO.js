@@ -1,3 +1,4 @@
+var util = require('util');
 function UserDAO(database){
     this._collection = database.ref('users');
 }

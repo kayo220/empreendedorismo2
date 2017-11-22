@@ -76,15 +76,15 @@
       
       <h3 class="text-center">Login</h3>
       
-      <form class="row">
+      <form class="row" action='/login' method='post'>
         <div class="large-7 column large-centered">
-            <label>Email
-              <input type="email" placeholder="Email" />
+            <label>Username
+              <input type="text" name="usernameLogin" placeholder="Usuário" />
             </label>
             <label>Senha
-              <input type="password" placeholder="Senha" />
+              <input type="password" name="passwordLogin" placeholder="Senha" />
             </label>
-          <center><input type="button" value="Login" class="button secondary"/></center>
+          <center><input type="submit" value="Login" class="button secondary"/></center>
         </div>
       </form>
       

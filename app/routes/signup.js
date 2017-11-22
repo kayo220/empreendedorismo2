@@ -23,7 +23,6 @@ module.exports = function(app){
             });
             return;
         }
-        
         var conn = app.infra.connectionFactory();
         var userDAO = new app.infra.UserDAO(conn);
         
