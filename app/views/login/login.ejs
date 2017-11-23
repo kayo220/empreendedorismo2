@@ -24,7 +24,7 @@
       
       <h3 class="text-center">Cadastro</h3>
       <div class="errors">
-          <%if(validationErrors) {%>
+          <%if(validationErrors && tab == 'signup') {%>
                 <ul>
                     <%for(var i=0; i<validationErrors.length; i++){%>
                         <li><%= validationErrors[i].msg %></li>
@@ -75,10 +75,19 @@
     <div class="content <%if(tab == 'login'){%> active <%}%>" id="panel2-1">
       
       <h3 class="text-center">Login</h3>
+      <div class="errors">
+          <%if(validationErrors && tab == 'login') {%>
+                <ul>
+                    <%for(var i=0; i<validationErrors.length; i++){%>
+                        <li><%= validationErrors[i].msg %></li>
+                    <%}%>
+                </ul>
+            <%}%>
+      </div>
       
       <form class="row" action='/login' method='post'>
         <div class="large-7 column large-centered">
-            <label>Username
+            <label>Nome de Usuário
               <input type="text" name="usernameLogin" placeholder="Usuário" />
             </label>
             <label>Senha
