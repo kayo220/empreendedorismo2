@@ -34,17 +34,18 @@ module.exports = function(app){
         var userDAO = new app.infra.UserDAO(conn);
 
         userDAO.searchByUsername(user.usernameLogin, function(snap){
-            var dbuser = snap.val()[user.usernameLogin];
-            if (user.passwordLogin  === dbuser.password) {
-                req.session.user = dbuser;
-                res.redirect('/');
+            if(snap.val()){
+                var dbuser = snap.val()[user.usernameLogin];
+                if (user.passwordLogin  === dbuser.password) {
+                    req.session.user = dbuser;
+                    res.redirect('/');
+                    return;
+                }
             }
-		    else {
-		        res.render('login/login',{
-		            validationErrors: [{msg:'Email e/ou senha errado(s)!'}],
-		            tab: 'login'
-		        });
-		    }
+            res.render('login/login',{
+                validationErrors: [{msg:'Email e/ou senha errado(s)!'}],
+                tab: 'login'
+            });
         });
     });
 }
