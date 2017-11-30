@@ -1,4 +1,9 @@
 module.exports = function(app){
+    app.get('/signup', function(req, res){
+      res.render('signup/form',{
+        validationErrors:{}
+      });
+    });
     app.post('/signup', function(req, res){
         var user = req.body;
 
@@ -12,33 +17,33 @@ module.exports = function(app){
         req.assert('alcohol','Você é consome álcool?').notEmpty();
         req.assert('children','Você tem filhos?').notEmpty();
         req.assert('pets','Você tem animais de estimação?').notEmpty();
-        
+
         var errors = req.validationErrors();
 
         if(errors){
             res.status(400);
-            res.render('login/login',{
-                validationErrors: errors,
-                tab: 'signup'
+            res.render('signup/form',{
+                validationErrors: errors
             });
             return;
         }
         var conn = app.infra.connectionFactory();
         var userDAO = new app.infra.UserDAO(conn);
-        
+
         userDAO.searchByUsername(user.username, function(snap){
             if(!snap.val()){
                 userDAO.insert(user, function(err){
-                    res.redirect('/login');
+                    req.session.user = user;
+                    res.redirect('/');
                 });
             }else{
-                res.render('login/login',{
+                res.render('signup/form',{
                     validationErrors: [{msg:'Nome de usuário já existe'}],
                     tab: 'signup'
                 });
             }
         });
-        
+
     });
 
 }

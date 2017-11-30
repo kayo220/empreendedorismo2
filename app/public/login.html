@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Smart Bazaar an E-commerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
+<title>Dakamo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Smart Bazaar Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -126,28 +126,13 @@ $(document).ready(function() {
 			<div class="w3ls-header-right">
 				<ul>
 					<li class="dropdown head-dpdn">
-						<%if(user){%>
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>Bem Vindo, <%=user.name%>!<span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>Minha Conta<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="login.html">Cadastrar Casa</a></li>
-							<li><a href="signup.html">Casas Cadastradas</a></li>
-							<li>
-							<form class="row" action='/logout' method='post'>
-									<center><input type="submit" value="Logout" class="button secondary"/></center>
-							</form>
-							</li>
+							<li><a href="login.html">Login </a></li>
+							<li><a href="signup.html">Sign Up</a></li>
+							<li><a href="login.html">My Orders</a></li>
+							<li><a href="login.html">Wallet</a></li>
 						</ul>
-						<%}else{%>
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>Minha Conta<span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="login.html">Login </a></li>
-								<li>
-								<form class="row" action='/signup' method='GET'>
-										<center><input type="submit" value="Cadastrar" class="button secondary"/></center>
-								</form>
-								</li>
-							</ul>
-						<%}%>
 					</li>
 				</ul>
 			</div>
@@ -183,44 +168,27 @@ $(document).ready(function() {
 		</nav>
 	</div>
 	<!-- banner -->
-	<div class="banner">
-		<div id="kb" class="carousel kb_elastic animate_text kb_wrapper" data-ride="carousel" data-interval="6000" data-pause="hover">
-			<!-- Wrapper-for-Slides -->
-            <div class="carousel-inner" role="listbox">
-                <div class="item active"><!-- First-Slide -->
-                    <img src="images/5.jpg" alt="" class="img-responsive" />
-                    <div class="carousel-caption kb_caption kb_caption_right">
-                        <h3 data-animation="animated flipInX">Facilidade no processo de migração</h3>
-                        <h4 data-animation="animated flipInX">Nunca foi tão fácil encontrar as pessoas certas para dividir as despesas!</h4>
-                    </div>
-                </div>
-                <div class="item"> <!-- Second-Slide -->
-                    <img src="images/8.jpg" alt="" class="img-responsive" />
-                    <div class="carousel-caption kb_caption kb_caption_right">
-                        <h3 data-animation="animated fadeInDown">Conclua rápido sua transação</h3>
-                        <h4 data-animation="animated fadeInUp">Possuimos os melhores imóveis para seu perfil</h4>
-                    </div>
-                </div>
-                <div class="item"><!-- Third-Slide -->
-                    <img src="images/3.jpg" alt="" class="img-responsive"/>
-                    <div class="carousel-caption kb_caption kb_caption_center">
-                        <h3 data-animation="animated fadeInLeft">Aluguel de Imóveis</h3>
-                        <h4 data-animation="animated flipInX">Disponibilize suas residências</h4>
-                    </div>
-                </div>
-            </div>
-            <!-- Left-Button -->
-            <a class="left carousel-control kb_control_left" href="#kb" role="button" data-slide="prev">
-				<span class="fa fa-angle-left kb_icons" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <!-- Right-Button -->
-            <a class="right carousel-control kb_control_right" href="#kb" role="button" data-slide="next">
-                <span class="fa fa-angle-right kb_icons" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-		<script src="js/custom.js"></script>
+
+	<div class="login-page">
+		<div class="container">
+			<h3 class="w3ls-title w3ls-title1">Login</h3>
+			<h2 id="loginError">
+			</h2>
+			<div class="login-body">
+				<form action="/login" method="post">
+					<input type="text" class="user" name="usernameLogin" placeholder="Nome de Usuário" required>
+					<input type="password" name="passwordLogin" class="lock" placeholder="Senha" required>
+					<input type="submit" value="Login">
+					<div class="forgot-grid">
+						<div class="forgot">
+							<a href="#">Esqueceu sua senha?</a>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</form>
+			</div>
+			<h6> Não tem está no Dakamo? <a href="signup.html"> Cadastre-se!</a> </h6>
+		</div>
 	</div>
 	<!-- //banner -->
 	<!-- welcome -->
@@ -356,6 +324,14 @@ $(document).ready(function() {
 	<!-- menu js aim -->
 	<script src="js/jquery.menu-aim.js"> </script>
 	<script src="js/main.js"></script> <!-- Resource jQuery -->
+	<script type="text/javascript">
+		var query = new URLSearchParams(window.location.search);
+		if(query.get('failed')){
+			console.log('aaEEE');
+			var err = document.querySelector('#loginError');
+			err.innerHTML = 'Login ou senha incorretos';
+		}
+	</script>
 	<!-- //menu js aim -->
 	<!-- Bootstrap core JavaScript
     ================================================== -->
