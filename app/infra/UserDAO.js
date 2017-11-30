@@ -1,6 +1,6 @@
-var util = require('util');
 function UserDAO(database){
     this._collection = database.ref('users');
+    this._database = database;
 }
 
 
@@ -16,6 +16,7 @@ UserDAO.prototype.list = function (callback){
 }
 
 UserDAO.prototype.searchByUsername = function(username, callback){
+    console.log(this._collection.numChildren())
     this._collection
     .orderByKey()
     .equalTo(username)
