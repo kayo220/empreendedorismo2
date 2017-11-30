@@ -1,4 +1,7 @@
 module.exports = function(app){
+    app.get('/house/insert', function(req, res){
+      res.render('house/form');
+    })
 
     app.get('/house', function(req, res){
       var conn = app.infra.connectionFactory();
@@ -26,7 +29,7 @@ module.exports = function(app){
 
     });
 
-    app.post('/house', function(req, res){
+    app.post('/house/insert', function(req, res){
       var house = req.body;
 
       req.assert('usernameLogin', 'Nome de Usuário não pode estar em branco ').notEmpty();
@@ -41,15 +44,18 @@ module.exports = function(app){
       //     return;
       // }
 
+      house.owner = req.session.user.username;
+
       var conn = app.infra.connectionFactory();
       var houseDAO = new app.infra.HouseDAO(conn);
 
       var id = houseDAO.insert(house);
 
-      res.render('home/list',{
-        house_id: id
-      })
-      
+      // res.render('home/list',{
+      //   house_id: id
+      // })
+      res.redirect('/');
+
 
     })
 

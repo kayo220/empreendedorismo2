@@ -3,8 +3,8 @@ function UserDAO(database){
 }
 
 
-UserDAO.prototype.insert = function(house){  
-   return this._collection.push(house).key();
+UserDAO.prototype.insert = function(house){
+   return this._collection.push(house).key;
 }
 
 UserDAO.prototype.list = function (callback){
