@@ -8,8 +8,9 @@ module.exports = function(app){
       var houseDAO = new app.infra.HouseDAO(conn);
 
       houseDAO.list(function(snap){
-        res.render('home/list',{
-          houses: snap
+        var userHouses = snap.val()[req.session.user.username];
+        res.render('house/list',{
+          houses: userHouses
         })
       })
     });
@@ -54,7 +55,7 @@ module.exports = function(app){
       // res.render('home/list',{
       //   house_id: id
       // })
-      res.redirect('/');
+      res.redirect('/house');
 
 
     })

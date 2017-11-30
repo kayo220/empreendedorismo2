@@ -5,8 +5,6 @@
   <title>Dakamo</title>
   <script src="https://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
 
-
-
   <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/foundation/5.2.1/css/foundation.min.css'>
 
       <link rel="stylesheet" href="css/style.css">
@@ -16,38 +14,32 @@
 
 <body>
   <div class="row green-row">
-
-
-
   <div class="tabs-content">
-
     <div class="content active" id="panel2-1">
-
       <h3 class="text-center">Cadastrar Residência</h3>
-
       <form class="row" method="post" action="/house/insert">
         <div class="large-7 column large-centered">
-            Endereço</br></br>
-
+            <label for="housename">Como deseja chamar essa casa?</label>
+            <input type="text" name="housename" value="" placeholder="">
+            Endereço
             <label>
-            <input type="text" placeholder="CEP" />
+              <input type="text" name='cep' placeholder="CEP" required/>
             </label>
           <label>
-            <input type="text" placeholder="Rua" />
+            <input type="text" name='street' placeholder="Rua" required/>
             </label>
           <label>
-            <input type="text" placeholder="Nº" />
+            <input type="text" name='number' placeholder="Nº" required/>
             </label>
           <label>
-            <input type="text" placeholder="Bairro" />
+            <input type="text" name='district' placeholder="Bairro" required/>
             </label>
           <label>
-            <input type="text" placeholder="Estado" />
+            <input type="text" name='state' placeholder="Estado" required/>
             </label>
         <label>
-            <input type="text" placeholder="Cidade" />
+            <input type="text" name = 'city' placeholder="Cidade" required/>
             </label>
-            </br></br>
             Fotos do Imóvel
             <div class="col-xs-12">
                 <input id="imagem" type="file" accept="image/*" multiple/>
@@ -57,18 +49,18 @@
             Valor do Aluguel</br></br>
 
             <label>
-            <input type="text" placeholder="450,00" />
-            <label>&nbsp&nbspÁgua Inclusa no Valor </label><label>
-              &nbsp&nbsp &nbsp&nbsp<INPUT TYPE="RADIO" NAME="fumante" VALUE="Sim"> Sim<br/></label><label>
-              &nbsp&nbsp &nbsp&nbsp<INPUT TYPE="RADIO" NAME="fumante" VALUE="Nao"> Não <br/></label>
+            <input type="text" name='price' placeholder="450,00" />
+            <label>Água Inclusa no Valor </label><label>
+              <INPUT TYPE="RADIO" NAME="fumante" VALUE="Sim"> Sim<br/></label><label>
+              <INPUT TYPE="RADIO" NAME="fumante" VALUE="Nao"> Não <br/></label>
             </label>
-               <label>&nbsp&nbspEnergia Inclusa no Valor </label><label>
-               &nbsp&nbsp&nbsp&nbsp<INPUT TYPE="RADIO" NAME="fumante" VALUE="Sim"> Sim<br/></label><label>
-               &nbsp&nbsp&nbsp&nbsp<INPUT TYPE="RADIO" NAME="fumante" VALUE="Nao"> Não <br/></label>
+               <label>Energia Inclusa no Valor </label><label>
+               <INPUT TYPE="RADIO" NAME="fumante" VALUE="Sim"> Sim<br/></label><label>
+               <INPUT TYPE="RADIO" NAME="fumante" VALUE="Nao"> Não <br/></label>
             </label>
-               <label>&nbsp&nbspInternet Inclusa no Valor </label><label>
-               &nbsp&nbsp&nbsp&nbsp<INPUT TYPE="RADIO" NAME="fumante" VALUE="Sim"> Sim<br/></label><label>
-               &nbsp&nbsp&nbsp&nbsp<INPUT TYPE="RADIO" NAME="fumante" VALUE="Nao"> Não <br/></label>
+               <label>Internet Inclusa no Valor </label><label>
+               <INPUT TYPE="RADIO" NAME="fumante" VALUE="Sim"> Sim<br/></label><label>
+               <INPUT TYPE="RADIO" NAME="fumante" VALUE="Nao"> Não <br/></label>
             </label>
 
             </br></br>

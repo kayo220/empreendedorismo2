@@ -4,7 +4,7 @@ function UserDAO(database){
 
 
 UserDAO.prototype.insert = function(house){
-   return this._collection.push(house).key;
+   return this._collection.child(house.owner).push(house).key;
 }
 
 UserDAO.prototype.list = function (callback){
