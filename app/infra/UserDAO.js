@@ -16,7 +16,6 @@ UserDAO.prototype.list = function (callback){
 }
 
 UserDAO.prototype.searchByUsername = function(username, callback){
-    console.log(this._collection.numChildren())
     this._collection
     .orderByKey()
     .equalTo(username)
