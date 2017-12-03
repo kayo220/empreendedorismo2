@@ -15,7 +15,7 @@ module.exports = function(){
     app.use(bodyParser.urlencoded({extended:true}));
     app.use(bodyParser.json());
     app.use(expressValidator());
-    
+
     app.use(cookieParser());
     app.use(session({
         secret: 'dakamo',
@@ -28,9 +28,9 @@ module.exports = function(){
         .into(app);
 
 
-    app.use(function(request, response, next){
-        if (process.env.NODE_ENV == "production") {            
-            response.status(404).render("errors/404");
+    app.use(function(req, res, next){
+        if (process.env.NODE_ENV == "production") {
+            res.status(404).render("errors/404");
             next();
         }else{
             next();
@@ -40,7 +40,7 @@ module.exports = function(){
     app.use(function(error, request, response, next){ //Called first if error occurs
         if (process.env.NODE_ENV == "production") {
             response.status(500).render("errors/500");
-            return;            
+            return;
         }
         next(error);
    });

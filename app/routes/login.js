@@ -1,17 +1,15 @@
 module.exports = function(app){
-    app.post('/login', function(req, res){
+    app.get('/login', function(req, res) {
+        res.render('login/form',{
+          user: req.session.user,
+          validationErrors: {}
+        });
+    });
 
+    app.post('/login', function(req, res){
         var user = req.body;
 
-        req.assert('usernameLogin', 'Nome de Usuário não pode estar em branco ').notEmpty();
-        req.assert('passwordLogin','Senha não pode estar em branco').notEmpty();
 
-        var errors = req.validationErrors();
-
-        if(errors){
-          res.status(400).redirect('login.html?failed=true');
-            return;
-        }
 
         var conn = app.infra.connectionFactory();
         var userDAO = new app.infra.UserDAO(conn);
@@ -25,7 +23,11 @@ module.exports = function(app){
                     return;
                 }
             }
-            res.status(400).redirect('login.html?failed=true');
+
+            res.status(400).render('login/form',{
+              user: req.session.user,
+              validationErrors: [{msg:'Nome de usuário ou senha incorreto'}]
+            });
         });
     });
 }

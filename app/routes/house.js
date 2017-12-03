@@ -10,6 +10,7 @@ module.exports = function(app){
       houseDAO.list(function(snap){
         var userHouses = snap.val()[req.session.user.username];
         res.render('house/list',{
+          user: req.session.user,
           houses: userHouses
         })
       })
@@ -23,6 +24,7 @@ module.exports = function(app){
       houseDAO.searchByID(id, function(snap){
         if(snap.val()){
           res.render('home/home',{
+            user: req.session.user,
             house:snap[id]
           })
         }

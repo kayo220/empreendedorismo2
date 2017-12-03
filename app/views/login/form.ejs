@@ -1,0 +1,45 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<% include ../common/default-page-head %>
+</head>
+<body>
+
+	<!-- header -->
+	<% include ../common/header.ejs %>
+	<!-- //header -->
+	<!-- banner -->
+
+	<div class="login-page">
+		<div class="container">
+			<h3 class="w3ls-title w3ls-title1">Login</h3>
+			<div class="login-body">
+				<% include ../common/formValidation %>
+				<form class="user-login" action="/login" method="post">
+					<input type="text" class="user" name="usernameLogin" placeholder="Nome de Usuário" required>
+					<input type="password" name="passwordLogin" class="lock" placeholder="Senha" required>
+					<input type="submit" value="Login">
+					<div class="forgot-grid">
+						<div class="forgot">
+							<a href="#">Esqueceu sua senha?</a>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</form>
+			</div>
+			<h6> Não tem está no Dakamo? <a class="a-signup" href="#">Cadastre-se!</a> </h6>
+		</div>
+	</div>
+	<!-- //banner -->
+	<!-- welcome -->
+
+	<!-- footer -->
+	<% include ../common/footer %>
+</body>
+</html>

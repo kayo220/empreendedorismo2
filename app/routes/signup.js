@@ -4,6 +4,7 @@ module.exports = function(app){
         validationErrors:{}
       });
     });
+    
     app.post('/signup', function(req, res){
         var user = req.body;
 
@@ -38,8 +39,7 @@ module.exports = function(app){
                 });
             }else{
                 res.render('signup/form',{
-                    validationErrors: [{msg:'Nome de usuário já existe'}],
-                    tab: 'signup'
+                    validationErrors: [{msg:'Nome de usuário já existe'}]
                 });
             }
         });

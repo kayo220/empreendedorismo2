@@ -1,0 +1,66 @@
+<div class="header">
+  <div class="w3ls-header"><!--header-one-->
+    <div class="w3ls-header-right">
+      <ul>
+        <li class="dropdown head-dpdn">
+          <%if(user){%>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>Bem Vindo, <%=user.name%>!<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li class="li-house-insert"><a href="#">Cadastrar Casa</a></li>
+              <li class="li-house-list"><a href="#">Minhas Casas</a></li>
+              <li class="li-logout"><a href="#">Logout</a></li>
+            </ul>
+            <!-- Hidden forms -->
+              <!-- Cadastrar casa -->
+              <form hidden class="form-house-insert" action='/house/insert' method='GET'></form>
+              <!-- Listar casa -->
+              <form hidden class="form-house-list" action='/house' method='GET'></form>
+              <!-- Logout -->
+              <form hidden class="form-logout" action='/logout' method='POST'></form>
+
+          <%}else{%>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>Minha Conta<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li class="li-login"><a href="#">Login</a></li>
+                <li class="li-signup"><a href="#">Cadastre-se</a></li>
+              </ul>
+              <!-- Hidden forms -->
+                <!-- Login usuário -->
+                  <form hidden class="form-login" action='/login' method='GET'></form>
+                  <!-- Cadastro usuário -->
+                  <form hidden class="form-signup" action='/signup' method='GET'></form>
+          <%}%>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"> </div>
+  </div>
+  <div class="header-two"><!-- header-two -->
+    <div class="container">
+      <div class="header-logo">
+        <h1><a href="/"><span>D</span>akamo<i></i></a></h1>
+        <h6>Busca de Imóveis</h6>
+      </div>
+      <div class="header-search">
+        <form action="#" method="post">
+          <input type="search" name="Search" placeholder="Busque por residências..." required="">
+          <button type="submit" class="btn btn-default" aria-label="Left Align">
+            <i class="fa fa-search" aria-hidden="true"> </i>
+          </button>
+        </form>
+      </div>
+
+  </div><!-- //header-two -->
+</div>
+
+<div>
+  <nav id="menu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="single.html">Produtos</a></li>
+      <li><a href="#">Missão</a></li>
+      <li><a href="#">Links</a></li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+  </nav>
+</div>

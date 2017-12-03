@@ -19,15 +19,7 @@
     <div class="content content active" id="panel2-2">
 
       <h3 class="text-center">Cadastro</h3>
-      <div class="errors">
-          <%if(validationErrors) {%>
-                <ul>
-                    <%for(var i=0; i<validationErrors.length; i++){%>
-                        <li><%= validationErrors[i].msg %></li>
-                    <%}%>
-                </ul>
-            <%}%>
-      </div>
+      <% include ../common/formValidation%>
       <form class="row" action='/signup' method='post'>
         <div class="large-7 column large-centered">
             <label>Nome

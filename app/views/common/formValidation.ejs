@@ -1,0 +1,9 @@
+<%if(validationErrors){%>
+  <%for (var i = 0; i < validationErrors.length; i++) {%>
+    <h4 id="validationErrors">
+      <ul>
+        <li><%= validationErrors[i].msg %></li>
+      </ul>
+    </h2>
+  <%}%>
+<%}%>
