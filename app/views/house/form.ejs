@@ -1,83 +1,130 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
 <!DOCTYPE html>
-<html >
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dakamo</title>
-  <script src="https://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
-
-  <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/foundation/5.2.1/css/foundation.min.css'>
-
-      <link rel="stylesheet" href="css/style.css">
-
-
+<% include ../common/default-page-head %>
 </head>
-
 <body>
-  <div class="row green-row">
-  <div class="tabs-content">
-    <div class="content active" id="panel2-1">
-      <h3 class="text-center">Cadastrar Residência</h3>
-      <form class="row" method="post" action="/house/insert">
-        <div class="large-7 column large-centered">
-            <label for="housename">Como deseja chamar essa casa?</label>
-            <input type="text" name="housename" value="" placeholder="">
-            Endereço
-            <label>
-              <input type="text" name='cep' placeholder="CEP" required/>
-            </label>
-          <label>
-            <input type="text" name='street' placeholder="Rua" required/>
-            </label>
-          <label>
-            <input type="text" name='number' placeholder="Nº" required/>
-            </label>
-          <label>
-            <input type="text" name='district' placeholder="Bairro" required/>
-            </label>
-          <label>
-            <input type="text" name='state' placeholder="Estado" required/>
-            </label>
-        <label>
-            <input type="text" name = 'city' placeholder="Cidade" required/>
-            </label>
-            Fotos do Imóvel
-            <div class="col-xs-12">
-                <input id="imagem" type="file" accept="image/*" multiple/>
-            </div>
 
-            </br></br>
-            Valor do Aluguel</br></br>
+	<!-- header -->
+	<% include ../common/header.ejs %>
+	<!-- //header -->
+	<!-- banner -->
 
-            <label>
-            <input type="text" name='price' placeholder="450,00" />
-            <label>Água Inclusa no Valor </label><label>
-              <INPUT TYPE="RADIO" NAME="fumante" VALUE="Sim"> Sim<br/></label><label>
-              <INPUT TYPE="RADIO" NAME="fumante" VALUE="Nao"> Não <br/></label>
-            </label>
-               <label>Energia Inclusa no Valor </label><label>
-               <INPUT TYPE="RADIO" NAME="fumante" VALUE="Sim"> Sim<br/></label><label>
-               <INPUT TYPE="RADIO" NAME="fumante" VALUE="Nao"> Não <br/></label>
-            </label>
-               <label>Internet Inclusa no Valor </label><label>
-               <INPUT TYPE="RADIO" NAME="fumante" VALUE="Sim"> Sim<br/></label><label>
-               <INPUT TYPE="RADIO" NAME="fumante" VALUE="Nao"> Não <br/></label>
-            </label>
+	<div class="login-page">
+		<div class="container">
+			<h3 class="w3ls-title w3ls-title1">Cadastrar Casa</h3>
+			<div class="login-body">
+				<% include ../common/formValidation %>
+					<form class="user-login" action="/house/insert" method="POST" enctype="multipart/form-data">
+						<label>Escolha um identificador para a casa?</label>
+						<input type="text" class="user" name="housename" placeholder="Exemplo: Casa do Térreo" required>
 
-            </br></br>
-          <center><input type="submit" value="Cadastrar Residência" class="button secondary"/></center>
-        </div>
-      </form>
+						<label>Qual a rua da casa?</label>
+						<input type="text" class="user" name="street" placeholder="Rua da Mangueira" required>
 
-    </div>
+						<label>Quantas vagas estão disponíveis na casa?</label>
+						<input type="number" class="user" name="amount_people" required>
 
+						<label>Qual o valor do aluguel por pessoa?</label>
+						<input type="number" class="user" name="rent" required>
 
-  </div>
+						<label>Assinalem o que for verdadeiro para você:</label>
+						<fieldset>
+							<div class="opt-smoke">
+								<input class="form-check-input" type="checkbox" name="smoker">
+								Não gosto de compartilhar o ambiente com fumantes
+							</div>
+							<div class="opt-alcohol">
+								<input class="form-check-input" type="checkbox" name="alcohol">
+								Não tolero bebidas alcoólicas
+							</div>
+							<div class="opt-pets">
+								<input class="form-check-input" type="checkbox" name="pets">
+								Não quero ou não posso ter animais de estimação em casa
+							</div>
+							<div class="opt-visits">
+								<input class="form-check-input" type="checkbox" value="visits">
+								Sou reservado, não gosto de receber visitas
+							</div>
+						</fieldset>
 
-</div> <!-- End Row -->
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/js/foundation.min.js'></script>
+						<fieldset class="form-group">
+								<div class="row">
+									<label>Eu prefiro morar com...</label>
+									<div class="col-sm-10">
+										<div class="form-check">
+											<label class="form-check-label">
+											</label>
+												<input class="form-check-input" type="radio" name="prefferegender" value="m">
+												Homens
+										</div>
+										<div class="form-check">
+											<label class="form-check-label">
+											</label>
+												<input class="form-check-input" type="radio" name="prefferedgender" value="f">
+												Mulheres
+										</div>
+										<div class="form-check">
+											<label class="form-check-label">
+											</label>
+												<input class="form-check-input" type="radio" name="favoritegender" value="any" checked>
+												Indiferente
+										</div>
+									</div>
+								</div>
+							</fieldset>
 
-    <script  src="js/index.js"></script>
+							<label>Estado</label>
+							<input class="form-control" type="text" placeholder="Bahia" readonly>
 
+							<label>Cidade</label>
+							<input class="form-control" type="text" placeholder="Feira de Santana" readonly>
+							<label>Bairro da casa</label>
+
+							<fieldset>
+								<select class="form-control" name="district">
+									<%for(i in districts){%>
+										<%
+										var value;
+										if(i==1) {
+											value = 'none';
+										}else{
+											value = districts[i];
+										}%>
+									<option value="<%= value %>"><%= districts[i]%></option>
+									<%}%>
+								</select>
+							</fieldset>
+
+						<label>Envie algumas fotos da casa (4 no máximo)</label>
+						<input class="photos" type="file" name="photos" accept=".png, .jpg, .jpeg" multiple required>
+						<input type="submit" value="Cadastrar">
+					</form>
+			</div>
+		</div>
+	</div>
+	<!-- //banner -->
+	<!-- welcome -->
+	<script>
+			$('.photos').change(function(){
+		    if(this.files.length>4){
+		        alert('Você escolheu fotos demais. Por favor, escolha somente 4');
+			 			$('.photos').val('');
+				}
+		});
+		// Prevent submission if limit is exceeded.
+		$('photos').submit(function(){
+		    if(this.files.length>10)
+		        return false;
+		});
+	</script>
+	<!-- footer -->
+	<% include ./../common/footer %>
 </body>
 </html>

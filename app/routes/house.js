@@ -1,9 +1,13 @@
 module.exports = function(app){
     app.get('/house/insert', function(req, res){
-      res.render('house/form');
+      res.render('house/form',{
+        user: req.session.user,
+        validationErrors: {},
+        districts: app.consts.districts
+      });
     })
 
-    app.get('/house', function(req, res){
+    app.get('/house/list', function(req, res){
       var conn = app.infra.connectionFactory();
       var houseDAO = new app.infra.HouseDAO(conn);
 
@@ -16,7 +20,7 @@ module.exports = function(app){
       })
     });
 
-    app.get('/house/:id', function(req, res){
+    app.get('/house/view/:id', function(req, res){
       var id = req.params.id;
       var conn = app.infra.connectionFactory();
       var houseDAO = new app.infra.HouseDAO(conn);
@@ -32,20 +36,17 @@ module.exports = function(app){
 
     });
 
-    app.post('/house/insert', function(req, res){
+    app.post('/house/insert', app.uploader.array('photos', 4) ,function(req, res){
       var house = req.body;
+      //console.log(req.files);
+      console.log(req.files)
+      var photos = [];
 
-      req.assert('usernameLogin', 'Nome de Usuário não pode estar em branco ').notEmpty();
-      req.assert('passwordLogin','Senha não pode estar em branco').notEmpty();
+      for (var i = 0; i < req.files.length; i++) {
+        photos.push(req.files[i].path);
+      }
 
-      // if(errors){
-      //     res.status(400);
-      //     res.render('login/login',{
-      //         validationErrors: errors,
-      //         tab: 'login'
-      //     });
-      //     return;
-      // }
+      house.photos = photos;
 
       house.owner = req.session.user.username;
 
@@ -57,9 +58,7 @@ module.exports = function(app){
       // res.render('home/list',{
       //   house_id: id
       // })
-      res.redirect('/house');
-
-
+      res.redirect('/');
     })
 
 }
