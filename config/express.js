@@ -5,7 +5,8 @@ var expressValidator = require("express-validator");
 var session = require("express-session");
 var cookieParser = require('cookie-parser');
 var multer = require('multer');
-var upload = multer({limits: {fileSize: 2000000 },dest:'./uploads/'});
+var upload = multer({limits: {fileSize: 2000000 },dest:'./app/public/uploads/'});
+var path = require('path');
 
 module.exports = function(){
     var app = express();

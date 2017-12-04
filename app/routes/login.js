@@ -19,7 +19,7 @@ module.exports = function(app){
                 var dbuser = snap.val()[user.usernameLogin];
                 if (user.passwordLogin  === dbuser.password) {
                     req.session.user = dbuser;
-                    res.redirect('/');
+                    res.redirect('/house/list');
                     return;
                 }
             }

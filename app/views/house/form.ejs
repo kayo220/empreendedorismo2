@@ -22,8 +22,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="login-body">
 				<% include ../common/formValidation %>
 					<form class="user-login" action="/house/insert" method="POST" enctype="multipart/form-data">
-						<label>Escolha um identificador para a casa?</label>
-						<input type="text" class="user" name="housename" placeholder="Exemplo: Casa do Térreo" required>
+						<label>Nome do Anúncio</label>
+						<input type="text" class="user" name="housename" placeholder="Exemplo: Casa próxima a UEFS" required>
 
 						<label>Qual a rua da casa?</label>
 						<input type="text" class="user" name="street" placeholder="Rua da Mangueira" required>
@@ -61,19 +61,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										<div class="form-check">
 											<label class="form-check-label">
 											</label>
-												<input class="form-check-input" type="radio" name="prefferegender" value="m">
+												<input class="form-check-input" type="radio" name="gender" value="Masculino">
 												Homens
 										</div>
 										<div class="form-check">
 											<label class="form-check-label">
 											</label>
-												<input class="form-check-input" type="radio" name="prefferedgender" value="f">
+												<input class="form-check-input" type="radio" name="gender" value="Feminino">
 												Mulheres
 										</div>
 										<div class="form-check">
 											<label class="form-check-label">
 											</label>
-												<input class="form-check-input" type="radio" name="favoritegender" value="any" checked>
+												<input class="form-check-input" type="radio" name="gender" value="any" checked>
 												Indiferente
 										</div>
 									</div>
@@ -102,7 +102,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								</select>
 							</fieldset>
 
-						<label>Envie algumas fotos da casa (4 no máximo)</label>
+							<label> Informações adicionais </label>
+							<textarea name="info" rows="10" cols="50" placeholder="Essa casa é bem conservada, tem dois banheiros e uma suíte, área de serviço..."></textarea>
+
+						<label>Envie algumas fotos da casa (5 no máximo)</label>
 						<input class="photos" type="file" name="photos" accept=".png, .jpg, .jpeg" multiple required>
 						<input type="submit" value="Cadastrar">
 					</form>
@@ -113,8 +116,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- welcome -->
 	<script>
 			$('.photos').change(function(){
-		    if(this.files.length>4){
-		        alert('Você escolheu fotos demais. Por favor, escolha somente 4');
+		    if(this.files.length>5){
+		        alert('Você escolheu fotos demais. Por favor, escolha somente 3');
 			 			$('.photos').val('');
 				}
 		});

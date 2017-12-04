@@ -22,10 +22,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			%>
 			<div class="col-md-3 product-grids">
 				<div class="agile-products">
-					<a href="single.html"><img src="images/s2.jpg" class="img-responsive" alt="img"></a>
+					<a href="/house/view/<%= id %>"><img src="/<%= house.photos[0]%>" class="img-responsive" alt="img"></a>
 					<div class="agile-product-text">
-						<h5><a href="single.html"><%= house.housename%></a></h5>
-						<h6>R$ <%= house.price%></h6>
+						<h5><a href="/house/view/<%= id %>"><%= house.housename%></a></h5>
+						<h6>R$ <%= house.rent%></h6>
 					</div>
 				</div>
 			</div>

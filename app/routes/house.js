@@ -23,13 +23,13 @@ module.exports = function(app){
     app.get('/house/view/:id', function(req, res){
       var id = req.params.id;
       var conn = app.infra.connectionFactory();
-      var houseDAO = new app.infra.HouseDAO(conn);
+      var houseDAO = new app.infra.HouseDAO(conn, req.session.user.username);
 
       houseDAO.searchByID(id, function(snap){
         if(snap.val()){
-          res.render('home/home',{
+          res.render('house/view',{
             user: req.session.user,
-            house:snap[id]
+            house: snap.val()[id]
           })
         }
       })
@@ -43,7 +43,7 @@ module.exports = function(app){
       var photos = [];
 
       for (var i = 0; i < req.files.length; i++) {
-        photos.push(req.files[i].path);
+        photos.push('uploads/'+req.files[i].filename);
       }
 
       house.photos = photos;
@@ -58,7 +58,7 @@ module.exports = function(app){
       // res.render('home/list',{
       //   house_id: id
       // })
-      res.redirect('/');
+      res.redirect('/house/list');
     })
 
 }

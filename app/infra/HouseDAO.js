@@ -1,20 +1,21 @@
-function UserDAO(database){
+function HouseDAO(database, username){
     this._collection = database.ref('houses');
+    this._personal = database.ref('houses/'+username);
 }
 
 
-UserDAO.prototype.insert = function(house){
+HouseDAO.prototype.insert = function(house){
    return this._collection.child(house.owner).push(house).key;
 }
 
-UserDAO.prototype.list = function (callback){
+HouseDAO.prototype.list = function (callback){
     this._collection
     .once('value')
     .then(callback);
 }
 
-UserDAO.prototype.searchByID = function(id, callback){
-    this._collection
+HouseDAO.prototype.searchByID = function(id,callback){
+    this._personal
     .orderByKey()
     .equalTo(id)
     .once('value')
@@ -22,5 +23,5 @@ UserDAO.prototype.searchByID = function(id, callback){
 }
 
 module.exports = function(){
-    return UserDAO;
+    return HouseDAO;
 }
