@@ -9,8 +9,6 @@ module.exports = function(app){
     app.post('/login', function(req, res){
         var user = req.body;
 
-
-
         var conn = app.infra.connectionFactory();
         var userDAO = new app.infra.UserDAO(conn);
 

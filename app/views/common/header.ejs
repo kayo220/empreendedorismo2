@@ -57,10 +57,20 @@
   <nav id="menu">
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="single.html">Produtos</a></li>
-      <li><a href="#">Missão</a></li>
-      <li><a href="#">Links</a></li>
-      <li><a href="#">Contato</a></li>
+      <li class="li-available-houses"><a href="#">Casas Disponíveis</a></li>
+      <li class="li-my-houses"><a href="#">Minhas Casas</a></li>
     </ul>
   </nav>
 </div>
+<form hidden class="form-available-houses" action='/house/list/all' method='GET'></form>
+<form hidden class="form-my-houses" action='/house/list' method='GET'></form>
+
+<script>
+$(".li-available-houses").click(function(e){
+  $(".form-available-houses").submit();
+});
+
+$(".li-my-houses").click(function(e){
+  $(".form-my-houses").submit();
+});
+</script>

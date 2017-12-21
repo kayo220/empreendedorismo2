@@ -15,16 +15,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<% include ../common/header.ejs %>
 	<!-- //header -->
 	<!-- banner -->
-
+	<h3> <%= msg %></h3>
 	<div class="products-row">
+		<%if(!houses || houses.length == 0){%>
+			<h3> Sem casas cadastradas, você pode cadastrar uma casa clicando <a class="add-house" href="#">aqui</a> </h3>
+			<form hidden class="form-add-house" action='/house/insert' method='GET'></form>
+		<%}%>
 		<%for(var id in houses){
 			var house = houses[id];
 			%>
 			<div class="col-md-3 product-grids">
 				<div class="agile-products">
-					<a href="/house/view/<%= id %>"><img src="/<%= house.photos[0]%>" class="img-responsive" alt="img"></a>
+					<a href="/house/view/<%= house.owner %>/<%= house.id %>"><img src="/<%= house.photos[0]%>" class="img-responsive" alt="img"></a>
 					<div class="agile-product-text">
-						<h5><a href="/house/view/<%= id %>"><%= house.housename%></a></h5>
+						<h5><a href="/house/view/<%= house.owner %>/<%= house.id %>"><%= house.housename%></a></h5>
 						<h6>R$ <%= house.rent%></h6>
 					</div>
 				</div>
@@ -38,6 +42,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- footer -->
 	<% include ./../common/footer %>
 	<% include ./../common/libs %>
-
+	<script>
+	$(".add-house").click(function(e){
+	  $(".form-add-house").submit();
+	});
+	</script>
 </body>
 </html>

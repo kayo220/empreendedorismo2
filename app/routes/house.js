@@ -5,32 +5,100 @@ module.exports = function(app){
         validationErrors: {},
         districts: app.consts.districts
       });
-    })
+    });
+
+    app.post('/house/fav', function(req, res){
+      var data = req.body;
+
+      var conn = app.infra.connectionFactory();
+      var FavsDAO = new app.infra.FavsDAO(conn);
+
+      if(data.add){
+        FavsDAO.insert(data.user, data.house, function(){
+          res.status(200).send();
+        });
+      }else{
+
+      }
+
+    });
 
     app.get('/house/list', function(req, res){
       var conn = app.infra.connectionFactory();
       var houseDAO = new app.infra.HouseDAO(conn);
 
-      houseDAO.list(function(snap){
-        var userHouses = snap.val()[req.session.user.username];
+      if(!req.session.user){
+        res.redirect('/login');
+        return;
+      }
+
+      var username = req.session.user.username;
+
+      houseDAO.list(username, function(snap){
+        var userHouses = snap.val();
         res.render('house/list',{
           user: req.session.user,
-          houses: userHouses
+          houses: userHouses,
+          msg: 'Suas Casas'
         })
       })
     });
 
-    app.get('/house/view/:id', function(req, res){
-      var id = req.params.id;
+    app.get('/house/list/all', function(req, res) {
       var conn = app.infra.connectionFactory();
-      var houseDAO = new app.infra.HouseDAO(conn, req.session.user.username);
+      var houseDAO = new app.infra.HouseDAO(conn);
 
-      houseDAO.searchByID(id, function(snap){
+      houseDAO.listAll(function(snap){
+        var result = snap.val();
+        var houses = [];
+
+        for(user in result){
+          var userHouses = result[user];
+          for(house in userHouses){
+            userHouses[house].id = house;
+            houses.push(userHouses[house]);
+          }
+        }
+
+        res.render('house/list',{
+          user: req.session.user,
+          houses: houses,
+          msg: 'Casas Disponíveis'
+        })
+      })
+    });
+
+    app.get('/house/view/:owner/:id', function(req, res){
+      var id = req.params.id;
+      var owner = req.params.owner;
+      var username;
+
+      if(req.session.user){
+        username = req.session.user.username;
+      }
+
+
+
+      var conn = app.infra.connectionFactory();
+      var houseDAO = new app.infra.HouseDAO(conn);
+
+      houseDAO.searchByID(owner, id, function(snap){
         if(snap.val()){
-          res.render('house/view',{
-            user: req.session.user,
-            house: snap.val()[id]
-          })
+          var conn = app.infra.connectionFactory();
+          var userDAO = new app.infra.UserDAO(conn);
+          house = snap.val()[id];
+          house.id = id;
+
+          userDAO.searchByUsername(owner, function(snap){
+              if(snap.val()){
+                  var houseOwner = snap.val()[owner];
+                  res.render('house/view',{
+                    user: username,
+                    house: house,
+                    owner:houseOwner
+                  })
+              }
+          });
         }
       })
 
@@ -38,7 +106,6 @@ module.exports = function(app){
 
     app.post('/house/insert', app.uploader.array('photos', 4) ,function(req, res){
       var house = req.body;
-      //console.log(req.files);
       console.log(req.files)
       var photos = [];
 
@@ -55,9 +122,6 @@ module.exports = function(app){
 
       var id = houseDAO.insert(house);
 
-      // res.render('home/list',{
-      //   house_id: id
-      // })
       res.redirect('/house/list');
     })
 

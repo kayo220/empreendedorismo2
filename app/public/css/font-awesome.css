@@ -585,6 +585,9 @@
 .fa-heart-o:before {
   content: "\f08a";
 }
+.red{
+  color:red;
+}
 .fa-sign-out:before {
   content: "\f08b";
 }
