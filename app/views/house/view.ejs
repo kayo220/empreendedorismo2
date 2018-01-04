@@ -165,7 +165,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<input type="hidden" name="amount" value="540.00" />
 							<%# <button type="submit" class="w3ls-cart" ><i class="fa fa-cart-plus" aria-hidden="true"></i> Alugar</button> %>
 						</form>
-						<button class="favorito w3ls-cart w3ls-cart-like"><i class="tag-favorito fa fa-heart-o" aria-hidden="true"></i>Favoritar</button>
+						<button class="favorito w3ls-cart w3ls-cart-like"><i class="tag-favorito fa fa-heart-o" aria-hidden="true"></i><span>Adicionar aos Favoritos</span></button>
 					</div>
 				   <div class="clearfix"> </div>
 				</div>
@@ -255,19 +255,39 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!--//products-->
 	<!-- footer-top -->
 	<script>
-	$('.favorito').click(function(e){
-		var btn = $(this);
-		var tag = $('.tag-favorito')
-		const data = {
-			user: '<%= house.owner %>',
-			house: '<%= house.id %>'
+	<%
+	var username;
+	if(user){
+		username = user.username
+	}
+	%>
+	const data = {
+		owner: '<%= house.owner %>',
+		house: '<%= house.id %>',
+		user: '<%= username %>'
+	}
+
+	const add = 'Adicionar aos Favoritos';
+	const rm = 'Remover dos Favoritos';
+	const tag = $('.tag-favorito');
+
+	$.post('/house/fav/status', data, function(data, status){
+		if(data.isFavorite){
+			$('.favorito span').text(rm)
+			tag.addClass('red');
 		}
+	});
+
+	$('.favorito').click(function(e){
+
 		if(tag.hasClass('red')){
-			tag.removeClass('red');
-			// $.post('/house/fav/remove', function(data, textStatus, xhr) {
-			// });
+			$.post('/house/fav/remove', data, function(data, textStatus, xhr) {
+				$('.favorito span').text(add)
+				tag.removeClass('red');
+			});
 		}else{
-			 $.post('/house/fav/insert', function({x:'daniel'}, status) {
+			 $.post('/house/fav/insert', data, function(data, status) {
+				 $('.favorito span').text(rm)
 				 tag.addClass('red');
 			 });
 		}

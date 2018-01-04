@@ -20,6 +20,9 @@ module.exports = function(app){
 
       houseDAO.list(username, function(snap){
         var userHouses = snap.val();
+        for(i in userHouses){
+          userHouses[i].id = i;
+        }
         res.render('house/list',{
           user: req.session.user,
           houses: userHouses,
@@ -60,8 +63,6 @@ module.exports = function(app){
       if(req.session.user){
         username = req.session.user.username;
       }
-
-
 
       var conn = app.infra.connectionFactory();
       var houseDAO = new app.infra.HouseDAO(conn);
@@ -111,7 +112,13 @@ module.exports = function(app){
 
     app.post('/house/fav/insert', function(req, res){
       var data = req.body;
-      var username = data.username//req.session.user.username;
+
+      if(!req.session.user){
+        res.status(400).send('Not logged')
+        return;
+      }
+
+      var username = req.session.user.username;
 
       var conn = app.infra.connectionFactory();
       var userDAO = new app.infra.UserDAO(conn);
@@ -125,6 +132,12 @@ module.exports = function(app){
 
     app.post('/house/fav/remove', function(req, res){
       var data = req.body;
+
+      if(!req.session.user){
+        res.status(400).send('Not logged')
+        return;
+      }
+
       var username = req.session.user.username;
 
       var conn = app.infra.connectionFactory();
@@ -138,7 +151,7 @@ module.exports = function(app){
     });
 
     app.get('/house/fav/list', function(req, res){
-      var username = 'dcandrade2';//req.session.user.username;
+      var username = req.session.user.username;
 
       var conn = app.infra.connectionFactory();
       var userDAO = new app.infra.UserDAO(conn);
@@ -180,4 +193,20 @@ module.exports = function(app){
       });
     })
 
+    app.post('/house/fav/status', function(req,res){
+      var conn = app.infra.connectionFactory();
+      var userDAO = new app.infra.UserDAO(conn);
+      var data = req.body;
+      var answer = {};
+
+      userDAO.favStatus(data.user, data.owner, data.house, function(snap){
+        if(snap){
+          answer.isFavorite = true;
+        }else{
+          answer.isFavorite = false;
+        }
+
+        res.json(answer);
+      })
+    })
 }

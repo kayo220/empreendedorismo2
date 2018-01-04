@@ -35,6 +35,15 @@ UserDAO.prototype.lsFav = function (username, callback){
     .then(callback);
 }
 
+UserDAO.prototype.favStatus = function (user, owner, house, callback){
+    this._collection.child(user)
+    .child('favs')
+    .child(owner)
+    .child(house)
+    .once('value')
+    .then(callback);
+}
+
 UserDAO.prototype.list = function (callback){
     this._collection
     .once('value')
