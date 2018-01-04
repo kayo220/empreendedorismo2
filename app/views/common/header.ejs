@@ -8,6 +8,7 @@
             <ul class="dropdown-menu">
               <li class="li-house-insert"><a href="#">Cadastrar Casa</a></li>
               <li class="li-house-list"><a href="#">Minhas Casas</a></li>
+              <li class="li-house-fav"><a href="#">Casas Favoritas</a></li>
               <li class="li-logout"><a href="#">Logout</a></li>
             </ul>
             <!-- Hidden forms -->
@@ -17,6 +18,8 @@
               <form hidden class="form-house-list" action='/house/list' method='GET'></form>
               <!-- Logout -->
               <form hidden class="form-logout" action='/logout' method='POST'></form>
+              <!-- Listar casas favoritas -->
+              <form hidden class="form-house-fav" action='/house/fav/list' method='GET'></form>
 
           <%}else{%>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>Minha Conta<span class="caret"></span></a>
@@ -56,21 +59,17 @@
 <div>
   <nav id="menu">
     <ul>
-      <li><a href="index.html">Home</a></li>
+      <li><a href="/">Home</a></li>
       <li class="li-available-houses"><a href="#">Casas Disponíveis</a></li>
-      <li class="li-my-houses"><a href="#">Minhas Casas</a></li>
+      <li class="li-house-list"><a href="#">Minhas Casas</a></li>
+      <li class="li-house-fav"><a href="#">Casas Favoritas</a></li>
     </ul>
   </nav>
 </div>
 <form hidden class="form-available-houses" action='/house/list/all' method='GET'></form>
-<form hidden class="form-my-houses" action='/house/list' method='GET'></form>
 
 <script>
 $(".li-available-houses").click(function(e){
   $(".form-available-houses").submit();
-});
-
-$(".li-my-houses").click(function(e){
-  $(".form-my-houses").submit();
 });
 </script>

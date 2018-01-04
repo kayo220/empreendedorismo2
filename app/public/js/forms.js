@@ -10,6 +10,10 @@ $(".li-house-list").click(function(e){
   $(".form-house-list").submit();
 });
 
+$(".li-house-fav").click(function(e){
+  $(".form-house-fav").submit();
+});
+
 $(".li-signup").click(function(e){
   $(".form-signup").submit();
 });

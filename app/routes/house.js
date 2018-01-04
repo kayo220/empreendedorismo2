@@ -77,7 +77,7 @@ module.exports = function(app){
               if(snap.val()){
                   var houseOwner = snap.val()[owner];
                   res.render('house/view',{
-                    user: username,
+                    user: req.session.user,
                     house: house,
                     owner:houseOwner
                   })
@@ -161,7 +161,7 @@ module.exports = function(app){
           var x = houseDAO.searchByID(houses[i].owner, houses[i].id)
           result.push(x);
         }
-        
+
         Promise.all(result).then(function(snap){
           var houses = {}
           for(s in snap){
