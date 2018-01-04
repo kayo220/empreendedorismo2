@@ -7,22 +7,6 @@ module.exports = function(app){
       });
     });
 
-    app.post('/house/fav', function(req, res){
-      var data = req.body;
-
-      var conn = app.infra.connectionFactory();
-      var FavsDAO = new app.infra.FavsDAO(conn);
-
-      if(data.add){
-        FavsDAO.insert(data.user, data.house, function(){
-          res.status(200).send();
-        });
-      }else{
-
-      }
-
-    });
-
     app.get('/house/list', function(req, res){
       var conn = app.infra.connectionFactory();
       var houseDAO = new app.infra.HouseDAO(conn);
@@ -123,6 +107,77 @@ module.exports = function(app){
       var id = houseDAO.insert(house);
 
       res.redirect('/house/list');
+    });
+
+    app.post('/house/fav/insert', function(req, res){
+      var data = req.body;
+      var username = data.username//req.session.user.username;
+
+      var conn = app.infra.connectionFactory();
+      var userDAO = new app.infra.UserDAO(conn);
+
+      userDAO.addFav(username, data.owner, data.house, function(){
+        data.res = 'OK'
+        res.json(data)
+      })
+
+    });
+
+    app.post('/house/fav/remove', function(req, res){
+      var data = req.body;
+      var username = req.session.user.username;
+
+      var conn = app.infra.connectionFactory();
+      var userDAO = new app.infra.UserDAO(conn);
+
+      userDAO.rmFav(username, data.owner, data.house, function(){
+        data.res = 'OK'
+        res.json(data)
+      })
+
+    });
+
+    app.get('/house/fav/list', function(req, res){
+      var username = 'dcandrade2';//req.session.user.username;
+
+      var conn = app.infra.connectionFactory();
+      var userDAO = new app.infra.UserDAO(conn);
+      var houses = [];
+      userDAO.lsFav(username, function(snap){
+        var favs = snap.val();
+        for(owner in favs){
+          for(house in favs[owner]){
+            houses.push({
+              owner: owner,
+              id: house
+            })
+          }
+        }
+
+        var conn = app.infra.connectionFactory();
+        var houseDAO = new app.infra.HouseDAO(conn);
+        var result = []
+        for(i in houses){
+          var x = houseDAO.searchByID(houses[i].owner, houses[i].id)
+          result.push(x);
+        }
+        
+        Promise.all(result).then(function(snap){
+          var houses = {}
+          for(s in snap){
+            var temp = snap[s].val()
+            var key = Object.keys(temp)[0]
+            temp[key].id =key;
+            houses[key] = temp[key];
+          }
+
+          res.render('house/list', {
+            user: req.session.user,
+            houses: houses,
+            msg: 'Favoritas'
+          })
+        })
+      });
     })
 
 }

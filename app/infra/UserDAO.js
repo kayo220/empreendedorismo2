@@ -5,8 +5,34 @@ function UserDAO(database){
 
 
 UserDAO.prototype.insert = function(user, callback){
-   this._collection.child(user.username).set(user);
-   callback();
+   this._collection.child(user.username)
+   .set(user)
+   .then(callback);
+}
+
+UserDAO.prototype.addFav = function(username, owner, house, callback){
+  this._collection.child(username)
+  .child('favs')
+  .child(owner)
+  .child(house)
+  .set('')
+  .then(callback)
+}
+
+UserDAO.prototype.rmFav = function(username, owner, house, callback){
+  this._collection.child(username)
+  .child('favs')
+  .child(owner)
+  .child(house)
+  .remove()
+  .then(callback)
+}
+
+UserDAO.prototype.lsFav = function (username, callback){
+    this._collection.child(username)
+    .child('favs')
+    .once('value')
+    .then(callback);
 }
 
 UserDAO.prototype.list = function (callback){

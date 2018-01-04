@@ -258,20 +258,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	$('.favorito').click(function(e){
 		var btn = $(this);
 		var tag = $('.tag-favorito')
-		var data = {
+		const data = {
 			user: '<%= house.owner %>',
 			house: '<%= house.id %>'
 		}
 		if(tag.hasClass('red')){
-			data.add = false;
 			tag.removeClass('red');
+			// $.post('/house/fav/remove', function(data, textStatus, xhr) {
+			// });
 		}else{
-			data.add = true;
-
-			$.post('/house/fav', , function(data, textStatus, xhr) {
-				console.log('done')
-			});
-
+			 $.post('/house/fav/insert', function({x:'daniel'}, status) {
+				 tag.addClass('red');
+			 });
 		}
 
 	});

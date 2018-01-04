@@ -20,13 +20,12 @@ HouseDAO.prototype.listAll = function (callback){
     .then(callback);
 }
 
-HouseDAO.prototype.searchByID = function(owner,id,callback){
-    this._collection
+HouseDAO.prototype.searchByID = function(owner,id){
+    return this._collection
     .child(owner)
     .orderByKey()
     .equalTo(id)
-    .once('value')
-    .then(callback);
+    .once('value');
 }
 
 module.exports = function(){
