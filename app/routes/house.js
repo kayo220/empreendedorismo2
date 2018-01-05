@@ -26,7 +26,8 @@ module.exports = function(app){
         res.render('house/list',{
           user: req.session.user,
           houses: userHouses,
-          msg: 'Suas Casas'
+          msg: 'Suas Casas',
+          districts: app.consts.districts
         })
       })
     });
@@ -50,7 +51,8 @@ module.exports = function(app){
         res.render('house/list',{
           user: req.session.user,
           houses: houses,
-          msg: 'Casas Disponíveis'
+          msg: 'Casas Disponíveis',
+          districts: app.consts.districts
         })
       })
     });
@@ -187,7 +189,8 @@ module.exports = function(app){
           res.render('house/list', {
             user: req.session.user,
             houses: houses,
-            msg: 'Favoritas'
+            msg: 'Favoritas',
+            districts: app.consts.districts
           })
         })
       });

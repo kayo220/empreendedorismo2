@@ -1,51 +1,120 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE html>
-<html lang="en">
 <head>
 <% include ../common/default-page-head %>
+<script type="text/javascript" src="/js/jquery.jscrollpane.min.js"></script>
+		<script type="text/javascript" id="sourcecode">
+			$(function()
+			{
+				$('.scroll-pane').jScrollPane();
+			});
+		</script>
+<script type="text/javascript" src="/js/jquery.mousewheel.js"></script>
 </head>
+
 <body>
 
 	<!-- header -->
 	<% include ../common/header.ejs %>
-	<!-- //header -->
-	<!-- banner -->
-	<h3> <%= msg %></h3>
-	<div class="products-row">
-		<%if(!houses || houses.length == 0){%>
-			<h3> Sem casas cadastradas, você pode cadastrar uma casa clicando <a class="add-house" href="#">aqui</a> </h3>
-			<form hidden class="form-add-house" action='/house/insert' method='GET'></form>
-		<%}%>
-		<%for(var id in houses){
-			var house = houses[id];
-			%>
-			<div class="col-md-3 product-grids">
-				<div class="agile-products">
-					<a href="/house/view/<%= house.owner %>/<%= house.id %>"><img src="/<%= house.photos[0]%>" class="img-responsive" alt="img"></a>
-					<div class="agile-product-text">
-						<h5><a href="/house/view/<%= house.owner %>/<%= house.id %>"><%= house.housename%></a></h5>
-						<h6>R$ <%= house.rent%></h6>
+<div class="products">
+	<div class="container">
+		<div class="col-md-9 product-w3ls-right">
+			<!-- breadcrumbs -->
+			<div class="clearfix"> </div>
+			<!-- //breadcrumbs -->
+			<div class="product-top">
+				<h4><%= msg %></h4>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="products-row">
+				<%if(!houses || houses.length == 0){%>
+					<h3> Sem casas cadastradas, você pode cadastrar uma casa clicando <a class="add-house" href="#">aqui</a> </h3>
+					<form hidden class="form-add-house" action='/house/insert' method='GET'></form>
+				<%}%>
+				<%for(var id in houses){
+					var house = houses[id];
+					%>
+					<div class="col-md-3 product-grids">
+						<div class="agile-products">
+							<a href="/house/view/<%= house.owner %>/<%= house.id %>"><img src="/<%= house.photos[0]%>" class="img-responsive" alt="img"></a>
+							<div class="agile-product-text">
+								<h5><a href="/house/view/<%= house.owner %>/<%= house.id %>"><%= house.housename%></a></h5>
+								<h6>R$ <span class='rent'><%= house.rent %></span></h6>
+								<h6 class='district' hidden><%= house.district %></h6>
+								<h6 class='favoritegender' hidden><%= house.favoritegender %></h6>
+								<h6 class='pets' hidden><%= house.pets %></h6>
+								<h6 class='visits' hidden><%= house.vists %></h6>
+								<h6 class='alcohol' hidden><%= house.alcohol %></h6>
+								<h6 class='smoke' hidden><%= house.smoke %></h6>
+							</div>
+						</div>
+					</div>
+				<% }%>
+				<div class="clearfix"> </div>
+			</div>
+			<!-- add-products -->
+
+			<!-- //add-products -->
+		</div>
+		<div class="col-md-3 rsidebar">
+			<div class="rsidebar-top">
+				<div class="slider-left price-check">
+					<h4>Filtrar por Preço Máximo</h4>
+					<div class="row row1 scroll-pane">
+						<label class="checkbox"><input type="checkbox" name="price" value="100"><i></i>R$100 </label>
+						<label class="checkbox"><input type="checkbox" name="price" value="200"><i></i>R$200</label>
+						<label class="checkbox"><input type="checkbox" name="price" value="300"><i></i>R$300</label>
+						<label class="checkbox"><input type="checkbox" name="price" value="400"><i></i>R$400</label>
+						<label class="checkbox"><input type="checkbox" name="price" value="500"><i></i>R$500</label>
+						<label class="checkbox"><input type="checkbox" name="price" value="600"><i></i>R$600</label>
+						<label class="checkbox"><input type="checkbox" name="price" value="700"><i></i>R$700</label>
+						<label class="checkbox"><input type="checkbox" name="price" value="800"><i></i>R$800</label>
+						<label class="checkbox"><input type="checkbox" name="price" value="900"><i></i>R$900</label>
+						<label class="checkbox"><input type="checkbox" name="price" value="1000"><i></i>R$1000+</label>
+					</div>
+				</div>
+				<br> <br>
+				<div class="sidebar-row accept-check">
+					<h4>O locatário precisa aceitar..</h4>
+					<div class="row row1 scroll-pane">
+						<label class="checkbox"><input type="checkbox" name="accept" value="pets"><i></i>Animais</label>
+						<label class="checkbox"><input type="checkbox" name="accept" value="alcohol"><i></i>Bebidas Alcoólicas</label>
+						<label class="checkbox"><input type="checkbox" name="accept" value="visits"><i></i>Restrição de Visitas</label>
+						<label class="checkbox"><input type="checkbox" name="accept" value="smoke"><i></i>Fumantes</label>
+					</div>
+				</div>
+				<div class="sidebar-row live-check">
+					<h4>Você prefere morar com...</h4>
+					<div class="row row1 scroll-pane">
+						<label class="checkbox"><input type="checkbox" name="gender" value="any"><i></i>Indiferente</label>
+						<label class="checkbox"><input type="checkbox" name="gender" value="Masculino"><i></i>Pessoas do gênero masculino</label>
+						<label class="checkbox"><input type="checkbox" name="gender" value="Feminino"><i></i>Pessoas do gênero feminino</label>
+					</div>
+				</div>
+
+				<div class="sidebar-row district-check">
+					<h4>Bairro</h4>
+					<div class="row row1 scroll-pane">
+						<%for(i in districts){%>
+						<label class="checkbox"><input type="checkbox" name="district" value="<%= districts[i]%>"><i></i><%= districts[i]%></label>
+						<%}%>
 					</div>
 				</div>
 			</div>
-		<% }%>
+		</div>
 		<div class="clearfix"> </div>
-	</div>
-	<!-- //banner -->
-	<!-- welcome -->
 
-	<!-- footer -->
-	<% include ./../common/footer %>
-	<% include ./../common/libs %>
-	<script>
-	$(".add-house").click(function(e){
-	  $(".form-add-house").submit();
-	});
-	</script>
-</body>
-</html>
+
+
+
+		<% include ./../common/footer %>
+		<% include ./../common/libs %>
+		<script>
+		$(".add-house").click(function(e){
+		  $(".form-add-house").submit();
+		});
+		</script>
+
+<script src="/js/filter-houses.js">
+
+</script>
+	</body>
+	</html>
