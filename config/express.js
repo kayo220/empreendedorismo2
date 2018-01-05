@@ -11,9 +11,9 @@ var path = require('path');
 module.exports = function(){
     var app = express();
     app.uploader = upload;
-    app.use(express.static("./app/public"));
+    app.use(express.static(path.join(__dirname, '..','app', 'public')));
     app.set("view engine", "ejs");
-    app.set("views", "./app/views");
+    app.set("views", path.join(__dirname, '..','app', 'views'));
 
     app.use(bodyParser.urlencoded({extended:true}));
     app.use(bodyParser.json());
