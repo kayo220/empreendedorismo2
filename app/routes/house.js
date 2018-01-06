@@ -227,7 +227,7 @@ module.exports = function(app){
       var answer = {};
 
       userDAO.favStatus(data.user, data.owner, data.house, function(snap){
-        if(snap){
+        if(snap.val()){
           answer.isFavorite = true;
         }else{
           answer.isFavorite = false;
