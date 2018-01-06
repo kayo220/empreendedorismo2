@@ -1,5 +1,15 @@
 module.exports = function(app){
     app.get('/login', function(req, res) {
+      var query = req.query;
+
+      if(query.msg){
+        res.status(400).render('login/form',{
+          user: req.session.user,
+          validationErrors: [{msg:query.msg}]
+        });
+        return;
+      }
+
         res.render('login/form',{
           user: req.session.user,
           validationErrors: {}

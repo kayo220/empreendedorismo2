@@ -1,3 +1,5 @@
+const url = require('url');
+
 module.exports = function(app){
     app.get('/house/insert', function(req, res){
       res.render('house/form',{
@@ -12,7 +14,15 @@ module.exports = function(app){
       var houseDAO = new app.infra.HouseDAO(conn);
 
       if(!req.session.user){
-        res.redirect('/login');
+
+        res.redirect(url.format({
+          pathname: '/login',
+          query:{
+            msg: 'Antes de ver suas casas, você precisa fazer o login',
+            redir: '/house/list'
+          }
+        }));
+
         return;
       }
 
@@ -153,7 +163,21 @@ module.exports = function(app){
     });
 
     app.get('/house/fav/list', function(req, res){
+      if(!req.session.user){
+
+        res.redirect(url.format({
+          pathname: '/login',
+          query:{
+            msg: 'Antes de ver seus favoritos, você precisa fazer o login',
+            redir: '/house/fav/list'
+          }
+        }));
+
+        return;
+      }
+
       var username = req.session.user.username;
+
 
       var conn = app.infra.connectionFactory();
       var userDAO = new app.infra.UserDAO(conn);
@@ -189,7 +213,7 @@ module.exports = function(app){
           res.render('house/list', {
             user: req.session.user,
             houses: houses,
-            msg: 'Favoritas',
+            msg: 'Casas Favoritas',
             districts: app.consts.districts
           })
         })

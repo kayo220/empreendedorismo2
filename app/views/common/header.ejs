@@ -6,32 +6,21 @@
           <%if(user){%>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>Bem Vindo, <%=user.name%>!<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li class="li-house-insert"><a href="#">Cadastrar Casa</a></li>
-              <li class="li-house-list"><a href="#">Minhas Casas</a></li>
-              <li class="li-house-fav"><a href="#">Casas Favoritas</a></li>
+              <li class="li-house-insert"><a href="/house/insert">Cadastrar Casa</a></li>
+              <li class="li-house-list"><a href="/house/list">Minhas Casas</a></li>
+              <li class="li-house-fav"><a href="/house/fav/list">Casas Favoritas</a></li>
               <li class="li-logout"><a href="#">Logout</a></li>
             </ul>
             <!-- Hidden forms -->
-              <!-- Cadastrar casa -->
-              <form hidden class="form-house-insert" action='/house/insert' method='GET'></form>
-              <!-- Listar casa -->
-              <form hidden class="form-house-list" action='/house/list' method='GET'></form>
               <!-- Logout -->
               <form hidden class="form-logout" action='/logout' method='POST'></form>
-              <!-- Listar casas favoritas -->
-              <form hidden class="form-house-fav" action='/house/fav/list' method='GET'></form>
 
           <%}else{%>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>Minha Conta<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li class="li-login"><a href="#">Login</a></li>
-                <li class="li-signup"><a href="#">Cadastre-se</a></li>
+                <li class="li-login"><a href="/login">Login</a></li>
+                <li class="li-signup"><a href="/signup">Cadastre-se</a></li>
               </ul>
-              <!-- Hidden forms -->
-                <!-- Login usuário -->
-                  <form hidden class="form-login" action='/login' method='GET'></form>
-                  <!-- Cadastro usuário -->
-                  <form hidden class="form-signup" action='/signup' method='GET'></form>
           <%}%>
         </li>
       </ul>
@@ -60,9 +49,9 @@
   <nav id="menu">
     <ul>
       <li><a href="/">Home</a></li>
-      <li class="li-available-houses"><a href="#">Casas Disponíveis</a></li>
-      <li class="li-house-list"><a href="#">Minhas Casas</a></li>
-      <li class="li-house-fav"><a href="#">Casas Favoritas</a></li>
+      <li class="li-available-houses"><a href="/house/list/all">Casas Disponíveis</a></li>
+      <li class="li-house-list"><a href="/house/list">Minhas Casas</a></li>
+      <li class="li-house-fav"><a href="/house/fav/list">Casas Favoritas</a></li>
     </ul>
   </nav>
 </div>
