@@ -1,6 +1,35 @@
 const url = require('url');
 
 module.exports = function(app){
+    app.get('/house/search', function(req,res){
+      var district = req.query.search
+      var conn = app.infra.connectionFactory();
+      var houseDAO = new app.infra.HouseDAO(conn);
+
+      houseDAO.listAll(function(snap){
+        var result = snap.val();
+        var houses = [];
+
+        for(user in result){
+          var userHouses = result[user];
+          for(i in userHouses){
+            var house = userHouses[i]
+            if(house.district.toLowerCase() == district.toLowerCase()){
+            house.id = i;
+            houses.push(house);
+          }
+          }
+        }
+
+        res.render('house/list',{
+          user: req.session.user,
+          houses: houses,
+          msg: 'Casas Disponíveis no '+district.toUpperCase(),
+          districts: app.consts.districts
+        })
+      })
+    });
+
     app.get('/house/insert', function(req, res){
       res.render('house/form',{
         user: req.session.user,
