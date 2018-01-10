@@ -25,7 +25,8 @@ module.exports = function(app){
           user: req.session.user,
           houses: houses,
           msg: 'Casas Disponíveis no '+district.toUpperCase(),
-          districts: app.consts.districts
+          districts: app.consts.districts,
+          emptyMsg: 'Não existem casas com essas características'
         })
       })
     });
@@ -37,6 +38,49 @@ module.exports = function(app){
         districts: app.consts.districts
       });
     });
+
+    app.get('/house/suggest', function(req, res){
+      var conn = app.infra.connectionFactory();
+      var houseDAO = new app.infra.HouseDAO(conn);
+
+      if(!req.session.user){
+
+        res.redirect(url.format({
+          pathname: '/login',
+          query:{
+            msg: 'Antes de ver suas recomendações, você precisa fazer o login',
+            redir: '/house/list'
+          }
+        }));
+
+        return;
+      }
+
+      var username = req.session.user.username;
+
+      houseDAO.list(username, function(snap){
+        var userHouses = snap.val();
+        for(i in userHouses){
+          userHouses[i].id = i;
+        }
+        var user_p = req.session.user;
+        var user = {
+          district: user_p.district,
+          favoritegender: user_p.favoritegender,
+          pets: user_p.pets,
+          visits: user_p.visits,
+          alcohol: user_p.alcohol,
+          smoke: user_p.smoke
+        }
+        res.render('house/list-suggest',{
+          user: user,
+          houses: userHouses,
+          msg: 'Casas Recomendadas',
+          districts: app.consts.districts,
+          emptyMsg: 'Sem casas suficientes para gerar recomendações',
+        })
+      })
+    })
 
     app.get('/house/list', function(req, res){
       var conn = app.infra.connectionFactory();
@@ -66,7 +110,8 @@ module.exports = function(app){
           user: req.session.user,
           houses: userHouses,
           msg: 'Suas Casas',
-          districts: app.consts.districts
+          districts: app.consts.districts,
+          emptyMsg: 'Não existem casas com essas características'
         })
       })
     });
@@ -91,7 +136,8 @@ module.exports = function(app){
           user: req.session.user,
           houses: houses,
           msg: 'Casas Disponíveis',
-          districts: app.consts.districts
+          districts: app.consts.districts,
+          emptyMsg: 'Não existem casas com essas características'
         })
       })
     });
@@ -243,7 +289,8 @@ module.exports = function(app){
             user: req.session.user,
             houses: houses,
             msg: 'Casas Favoritas',
-            districts: app.consts.districts
+            districts: app.consts.districts,
+            emptyMsg: 'Não existem casas com essas características'
           })
         })
       });

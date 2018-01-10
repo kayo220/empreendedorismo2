@@ -12,6 +12,7 @@ $('.rsidebar-top').click(function(){
     products.forEach(function(product){
       product.classList.remove('hide')
     })
+    $('.list-message h4').text('')
   })
 
   $('.price-check input[name="price"]:checked').each(function(){
@@ -72,6 +73,26 @@ $('.rsidebar-top').click(function(){
         product.classList.add('hide-ds')
       }
     })
+  })
+
+  $('.rsidebar-top').each(function(){
+    var products = document.querySelectorAll('.product-grids')
+    var size = products.length;
+    var count = 0;
+    products.forEach(function(product){
+      if(product.classList.contains('hide')){
+        count += 1
+      }
+    })
+
+    var text = '<%= emptyMsg %>';
+    if(text){
+    }else{
+      text = 'Não existem casas com essas características'
+    }
+    if(size == count){
+      $('.list-message h4').text('<%= text %>')
+    }
   })
 
 })

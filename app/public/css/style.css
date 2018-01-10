@@ -153,6 +153,9 @@ ul.cd-dropdown-content li {
     float: right;
 	margin: 1.3em 0;
 }
+.fix-width{
+	width: 100% !important
+}
 .header-logo h1,.footer-logo.header-logo h2{
     font-size: 3em;
     font-weight: 900;

@@ -1,0 +1,139 @@
+<head>
+<% include ../common/default-page-head %>
+<script type="text/javascript" src="/js/jquery.jscrollpane.min.js"></script>
+		<script type="text/javascript" id="sourcecode">
+			$(function()
+			{
+				$('.scroll-pane').jScrollPane();
+			});
+		</script>
+<script type="text/javascript" src="/js/jquery.mousewheel.js"></script>
+</head>
+
+<body>
+
+	<!-- header -->
+	<% include ../common/header.ejs %>
+<div class="products">
+	<div class="container">
+		<div class="product-w3ls-right fix-width">
+			<!-- breadcrumbs -->
+			<div class="clearfix"> </div>
+			<!-- //breadcrumbs -->
+			<div class="product-top">
+				<h4><%= msg %></h4>
+				<div class="clearfix"> </div>
+			</div>
+			<span class="list-message">
+				<h4></h4>
+			</span>
+			<div class="products-row">
+				<%if(!houses || houses.length == 0){%>
+					<h3> Sem casas cadastradas, você pode cadastrar uma casa clicando <a class="add-house" href="#">aqui</a> </h3>
+					<form hidden class="form-add-house" action='/house/insert' method='GET'></form>
+				<%}%>
+				<%for(var id in houses){
+					var house = houses[id];
+					%>
+					<div class="col-md-3 product-grids">
+						<div class="agile-products">
+							<a href="/house/view/<%= house.owner %>/<%= house.id %>"><img src="/<%= house.photos[0]%>" class="img-responsive" alt="img"></a>
+							<div class="agile-product-text">
+								<h5><a href="/house/view/<%= house.owner %>/<%= house.id %>"><%= house.housename%></a></h5>
+								<h6>R$ <span class='rent'><%= house.rent %></span></h6>
+								<h6 class='district' hidden><%= house.district %></h6>
+								<h6 class='favoritegender' hidden><%= house.favoritegender %></h6>
+								<h6 class='pets' hidden><%= house.pets %></h6>
+								<h6 class='visits' hidden><%= house.vists %></h6>
+								<h6 class='alcohol' hidden><%= house.alcohol %></h6>
+								<h6 class='smoke' hidden><%= house.smoke %></h6>
+							</div>
+						</div>
+					</div>
+				<% }%>
+				<div class="clearfix"> </div>
+			</div>
+			<!-- add-products -->
+
+			<!-- //add-products -->
+		</div>
+		<div class="clearfix"> </div>
+
+
+		<% include ./../common/footer %>
+		<% include ./../common/libs %>
+		<script>
+		$(".add-house").click(function(e){
+		  $(".form-add-house").submit();
+		});
+		</script>
+
+		<script>
+
+		$(document).ready(function(){
+
+	    var products = document.querySelectorAll('.product-grids')
+	    products.forEach(function(product){
+	      product.classList.remove('hide')
+	    })
+	    $('.list-message h4').text('')
+
+
+	    var value = this.value;
+	    var products = document.querySelectorAll('.product-grids')
+	    products.forEach(function(product){
+	      var rent = product.querySelector('.rent').innerText
+	      rent = parseInt(rent)
+	      if(rent > value){
+	        product.classList.add('hide')
+	      }else{
+	        //product.classList.remove('hide')
+	      }
+			})
+
+
+	    var value = this.value;
+	    //console.log(value)
+	    var products = document.querySelectorAll('.product-grids')
+	    products.forEach(function(product){
+	      var opt = '<%= user.favoritegender %>'
+	      if(opt === value || value == 'any'){
+	        //product.classList.remove('hide')
+	      }else{
+	        product.classList.add('hide')
+	      }
+			})
+
+
+		    var value = this.value;
+		    var products = document.querySelectorAll('.product-grids')
+		    products.forEach(function(product){
+		      var opt = '<%= user.district %>';
+		      //console.log(opt)
+		      if(opt === value || value == 'Nenhum'){
+		        //product.classList.remove('hide')
+		      }else{
+		        product.classList.add('hide')
+		      }
+				})
+
+		    var products = document.querySelectorAll('.product-grids')
+		    var size = products.length;
+		    var count = 0;
+		    products.forEach(function(product){
+		      if(product.classList.contains('hide')){
+		        count += 1
+		      }
+		    })
+
+		    var text = '<%= emptyMsg %>';
+
+		    if(size == count){
+		      $('.list-message h4').text(text)
+		    }
+		})
+		</script>
+
+<%# <script src="/js/filter-houses.js"></script> %>
+	</body>
+	</html>
